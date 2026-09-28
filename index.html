@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Student API - CindyLeps </title>
+    <title>Student API</title>
 
     <style>
 
@@ -48,9 +48,9 @@
     <h1>Student Management</h1>
 
 
-
+    <!-- ================================ -->
     <!-- INSERT -->
-
+    <!-- ================================ -->
 
     <h2>Add Student</h2>
 
@@ -77,9 +77,9 @@
     </button>
 
 
-
+    <!-- ================================ -->
     <!-- RETRIEVE -->
-
+    <!-- ================================ -->
 
     <h2>Students</h2>
 
@@ -108,36 +108,141 @@
     </table>
 
 
-
     <script>
-           async function addStudent() {
-    const name = document.getElementById("name").value;
-    const course = document.getElementById("course").value;
-    const year_level = document.getElementById("year_level").value;
 
-    const student = {
-        name,
-        course,
-        year_level
-    };
 
-    const response = await fetch("/api/students", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(student)
-    });
+        // ========================================
+        // GET - Retrieve Students
+        // ========================================
 
-    const result = await response.json();
+        async function loadStudents() {
 
-    if (response.ok) {
-        console.log(result.message);
-        console.log("Student ID:", result.id);
-    } else {
-        console.error(result.message || result.error);
-    }
-}
+            const response =
+                await fetch("/api/students");
+
+
+            const students =
+                await response.json();
+
+
+            const table =
+                document.getElementById(
+                    "studentTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            students.forEach(student => {
+
+                const row = `
+                    <tr>
+
+                        <td>${student.id}</td>
+
+                        <td>${student.name}</td>
+
+                        <td>${student.course}</td>
+
+                        <td>${student.year_level}</td>
+
+                    </tr>
+                `;
+
+
+                table.innerHTML += row;
+
+            });
+
+        }
+
+
+        // ========================================
+        // POST - Insert Student
+        // ========================================
+
+        async function addStudent() {
+
+            const name =
+                document.getElementById(
+                    "name"
+                ).value;
+
+
+            const course =
+                document.getElementById(
+                    "course"
+                ).value;
+
+
+            const year_level =
+                document.getElementById(
+                    "yearLevel"
+                ).value;
+
+
+            const student = {
+
+                name: name,
+
+                course: course,
+
+                year_level: year_level
+
+            };
+
+
+            const response =
+                await fetch(
+                    "/api/students",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(student)
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            alert(result.message);
+
+
+            // Clear inputs
+
+            document.getElementById(
+                "name"
+            ).value = "";
+
+            document.getElementById(
+                "course"
+            ).value = "";
+
+            document.getElementById(
+                "yearLevel"
+            ).value = "";
+
+
+            // Refresh list
+
+            loadStudents();
+
+        }
+
+
+        // Load students when page opens
+        loadStudents();
 
     </script>
 
