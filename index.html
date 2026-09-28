@@ -108,7 +108,37 @@
     </table>
 
 
+
     <script>
+           async function addStudent() {
+    const name = document.getElementById("name").value;
+    const course = document.getElementById("course").value;
+    const year_level = document.getElementById("year_level").value;
+
+    const student = {
+        name,
+        course,
+        year_level
+    };
+
+    const response = await fetch("/api/students", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(student)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        console.log(result.message);
+        console.log("Student ID:", result.id);
+    } else {
+        console.error(result.message || result.error);
+    }
+}
+
     </script>
 
 </body>

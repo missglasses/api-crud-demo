@@ -100,10 +100,40 @@ app.delete("/api/students/:id", (req, res) => {
 });
 
 
+
+//INSERT STUDENT 
+app.post("/api/students", (req, res) => {
+    const { name, course, year_level } = req.body;
+
+    const sql = `
+        INSERT INTO students (name, course, year_level)
+        VALUES (?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [name, course, year_level],
+        (err, result) => {
+            if (err) {
+                return res.status(500).json({
+                    error: "Database error",
+                    message: err.message
+                });
+            } else {
+                return res.status(201).json({
+                    message: "Student added successfully",
+                    id: result.insertId
+                });
+            }
+        }
+    );
+});
+
+
 // ========================================
 // Start Server
 // ========================================
 
 app.listen(PORT, () => {
-    console.log(Server running at http://localhost:${PORT});
+  console.log(`Server running at http://localhost:${PORT}`);
 });
