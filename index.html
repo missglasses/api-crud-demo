@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Student API</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            width: 700px;
+            margin: 40px auto;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Student Management</h1>
+
+
+
+    <!-- INSERT -->
+
+
+    <h2>Add Student</h2>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Name"
+    >
+
+    <input
+        type="text"
+        id="course"
+        placeholder="Course"
+    >
+
+    <input
+        type="number"
+        id="yearLevel"
+        placeholder="Year Level"
+    >
+
+    <button onclick="addStudent()">
+        Add Student
+    </button>
+
+
+
+    <!-- RETRIEVE -->
+
+
+    <h2>Students</h2>
+
+    <button onclick="loadStudents()">
+        Load Students
+    </button>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Year Level</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="studentTable">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+    </script>
+
+</body>
+
+</html>
